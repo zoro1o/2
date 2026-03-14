@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AEI – Student Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav class="navbar">
+    <div class="brand">🏛️ <span>AEI</span> Portal</div>
+    <a href="/logout">Logout ↩</a>
+</nav>
+
+<div class="container">
+    <!-- Page Header -->
+    <div class="page-header">
+        <div>
+            <h1>Student Dashboard</h1>
+            <p>Welcome back, {{ student.name }}!</p>
+        </div>
+    </div>
+
+    <!-- ── Attendance & Marks Card ── -->
+    <div class="card">
+        <h2>📊 My Academic Record</h2>
+
+        <div class="student-info">
+            <h3>{{ student.name }}</h3>
+
+            <div class="info-row">
+                <!-- Attendance Pill -->
+                <div class="info-pill">
+                    <span>Attendance</span>
+                    {{ student.attendance }}%
+                </div>
+
+                <!-- One pill per subject mark -->
+                {% for subject, mark in student.marks.items() %}
+                <div class="info-pill">
+                    <span>{{ subject }}</span>
+                    {{ mark }} / 100
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Marks in a table format -->
+        <p class="section-title">Subject-wise Marks</p>
+        <table class="marks-table">
+            <tr>
+                <th>Subject</th>
+                <th>Marks</th>
+                <th>Grade</th>
+            </tr>
+            {% for subject, mark in student.marks.items() %}
+            <tr>
+                <td>{{ subject }}</td>
+                <td>{{ mark }} / 100</td>
+                <!-- Simple grading logic using Jinja2 -->
+                <td>
+                    {% if mark >= 90 %} A+
+                    {% elif mark >= 80 %} A
+                    {% elif mark >= 70 %} B
+                    {% elif mark >= 60 %} C
+                    {% else %} D
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <!-- ── Study Notes ── -->
+    <div class="card">
+        <h2>📄 Study Notes (from Faculty)</h2>
+        {% if notes %}
+            {% for note in notes %}
+            <div class="note-item">
+                <h4>{{ note.title }}</h4>
+                <p>{{ note.content }}</p>
+                <small style="color:#718096;">Uploaded by: {{ note.uploaded_by }}</small>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p style="color:#718096;">No notes uploaded yet.</p>
+        {% endif %}
+    </div>
+
+    <!-- ── Notice Board ── -->
+    <div class="card">
+        <h2>📋 Notices</h2>
+        {% if notices %}
+            {% for notice in notices %}
+            <div class="notice-item">
+                <h4>{{ notice.title }}</h4>
+                <p>{{ notice.content }}</p>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p style="color:#718096;">No notices at this time.</p>
+        {% endif %}
+    </div>
+
+</div><!-- /container -->
+</body>
+</html>

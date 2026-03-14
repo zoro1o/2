@@ -1,0 +1,205 @@
+/* ── AEI Portal Stylesheet ── */
+
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+
+/* ── Reset & Base ── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background: #f0f4f8;
+    color: #2d3748;
+    min-height: 100vh;
+}
+
+/* ── Navbar ── */
+.navbar {
+    background: #1a365d;
+    color: white;
+    padding: 14px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.navbar .brand { font-size: 1.3rem; font-weight: 800; letter-spacing: 0.5px; }
+.navbar .brand span { color: #fbd38d; }
+.navbar a { color: #bee3f8; text-decoration: none; font-weight: 600; font-size: 0.95rem; }
+.navbar a:hover { color: white; }
+
+/* ── Login Page ── */
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1a365d 0%, #2a4a7f 50%, #1a365d 100%);
+}
+.login-box {
+    background: white;
+    border-radius: 16px;
+    padding: 40px 36px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+.login-box .logo {
+    text-align: center;
+    margin-bottom: 24px;
+}
+.login-box .logo h1 { font-size: 1.6rem; font-weight: 800; color: #1a365d; }
+.login-box .logo p  { color: #718096; font-size: 0.88rem; margin-top: 4px; }
+
+/* ── Forms ── */
+.form-group { margin-bottom: 18px; }
+.form-group label { display: block; font-weight: 700; margin-bottom: 6px; font-size: 0.9rem; color: #4a5568; }
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: 'Nunito', sans-serif;
+    transition: border-color 0.2s;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #2b6cb0;
+}
+textarea { resize: vertical; height: 80px; }
+
+/* ── Buttons ── */
+.btn {
+    display: inline-block;
+    padding: 10px 22px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    transition: opacity 0.2s, transform 0.1s;
+    text-decoration: none;
+}
+.btn:hover { opacity: 0.88; transform: translateY(-1px); }
+.btn-primary  { background: #2b6cb0; color: white; width: 100%; text-align: center; }
+.btn-success  { background: #276749; color: white; }
+.btn-warning  { background: #c05621; color: white; }
+.btn-sm { padding: 6px 14px; font-size: 0.85rem; }
+
+/* ── Error box ── */
+.error-msg {
+    background: #fff5f5;
+    border: 1px solid #fc8181;
+    color: #c53030;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+/* ── Page Container ── */
+.container { max-width: 900px; margin: 30px auto; padding: 0 20px; }
+
+/* ── Cards ── */
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+}
+.card h2 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #1a365d;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ebf4ff;
+}
+
+/* ── Student Info block ── */
+.student-info { margin-bottom: 18px; }
+.student-info h3 { font-size: 1.3rem; font-weight: 800; color: #1a365d; }
+.info-row { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 12px; }
+.info-pill {
+    background: #ebf8ff;
+    border: 1px solid #bee3f8;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-weight: 700;
+    color: #2b6cb0;
+    font-size: 1rem;
+}
+.info-pill span { display: block; font-size: 0.78rem; color: #718096; font-weight: 600; margin-bottom: 2px; }
+
+/* ── Marks Table ── */
+.marks-table { width: 100%; border-collapse: collapse; }
+.marks-table th, .marks-table td {
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 0.95rem;
+}
+.marks-table th { background: #ebf4ff; color: #2b6cb0; font-weight: 800; border-radius: 6px; }
+.marks-table tr:not(:first-child) td { border-top: 1px solid #f0f4f8; }
+
+/* ── Notice / Note items ── */
+.notice-item, .note-item {
+    padding: 12px 16px;
+    border-left: 4px solid #2b6cb0;
+    background: #f7fafc;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 12px;
+}
+.notice-item h4, .note-item h4 { font-weight: 700; color: #1a365d; margin-bottom: 4px; }
+.notice-item p, .note-item p   { font-size: 0.9rem; color: #4a5568; }
+.note-item { border-color: #276749; }
+
+/* ── Admin / Faculty forms ── */
+.form-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; }
+.form-row .form-group { flex: 1; min-width: 140px; margin-bottom: 0; }
+.section-title {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #2b6cb0;
+    margin: 18px 0 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.82rem;
+}
+
+/* ── Page header ── */
+.page-header {
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.page-header h1 { font-size: 1.5rem; font-weight: 800; color: #1a365d; }
+.page-header p  { color: #718096; font-size: 0.9rem; }
+
+/* ── Notice board hero ── */
+.nb-hero {
+    background: #1a365d;
+    color: white;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 24px;
+}
+.nb-hero h1 { font-size: 1.8rem; font-weight: 800; }
+.nb-hero p  { color: #bee3f8; margin-top: 6px; }
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+    .form-row { flex-direction: column; }
+    .info-row { flex-direction: column; }
+}

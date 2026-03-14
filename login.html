@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AEI Portal – Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="login-wrapper">
+    <div class="login-box">
+        <!-- College Logo / Name -->
+        <div class="logo">
+            <h1>🏛️ AEI Portal</h1>
+            <p>Assam Engineering Institute</p>
+        </div>
+
+        <!-- Show error if login failed -->
+        {% if error %}
+            <div class="error-msg">⚠️ {{ error }}</div>
+        {% endif %}
+
+        <!-- Single login form for all roles -->
+        <form method="POST" action="/login">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" name="username" placeholder="e.g. S_1, faculty1, admin" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Login →</button>
+        </form>
+
+        <!-- Quick reference for demo -->
+        <div style="margin-top:20px; padding:12px; background:#f7fafc; border-radius:8px; font-size:0.82rem; color:#718096;">
+            <strong style="color:#4a5568;">Demo Credentials:</strong><br>
+            Students: S_1 / S_2 / S_3 → password: <code>STUDENT</code><br>
+            Faculty: faculty1 → password: <code>FACULTY</code><br>
+            Admin: admin → password: <code>ADMIN</code>
+        </div>
+
+        <!-- Link to notice board (no login needed) -->
+        <div style="text-align:center; margin-top:14px;">
+            <a href="/noticeboard" style="color:#2b6cb0; font-size:0.88rem; font-weight:700;">📋 View Notice Board</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

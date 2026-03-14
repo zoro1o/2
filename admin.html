@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AEI – Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav class="navbar">
+    <div class="brand">🏛️ <span>AEI</span> Portal</div>
+    <a href="/logout">Logout ↩</a>
+</nav>
+
+<div class="container">
+    <div class="page-header">
+        <div>
+            <h1>Admin Dashboard</h1>
+            <p>Manage students, faculty, and notices</p>
+        </div>
+    </div>
+
+    <!-- ── Manage Students (Update Attendance) ── -->
+    <div class="card">
+        <h2>🎓 Manage Students</h2>
+        <p class="section-title">Update Attendance</p>
+        <form method="POST" action="/admin/update_attendance">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Student</label>
+                    <select name="student_id" required>
+                        {% for sid, sdata in students.items() %}
+                            <option value="{{ sid }}">{{ sdata.name }} ({{ sid }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Attendance (%)</label>
+                    <input type="number" name="attendance" min="0" max="100" placeholder="e.g. 80" required>
+                </div>
+                <div class="form-group">
+                    <label>&nbsp;</label>
+                    <button type="submit" class="btn btn-warning">Update</button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Student Overview Table -->
+        <p class="section-title" style="margin-top:20px;">All Students</p>
+        <table class="marks-table">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Attendance</th>
+                <th>Subjects</th>
+            </tr>
+            {% for sid, sdata in students.items() %}
+            <tr>
+                <td>{{ sid }}</td>
+                <td>{{ sdata.name }}</td>
+                <td>{{ sdata.attendance }}%</td>
+                <td>
+                    {% for subject, mark in sdata.marks.items() %}
+                        {{ subject }}: {{ mark }}  
+                    {% endfor %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <!-- ── Manage Faculty / Users ── -->
+    <div class="card">
+        <h2>👩‍🏫 Manage Users</h2>
+        <table class="marks-table">
+            <tr>
+                <th>Username</th>
+                <th>Role</th>
+            </tr>
+            {% for uname, udata in users.items() %}
+            <tr>
+                <td>{{ uname }}</td>
+                <td style="text-transform:capitalize;">{{ udata.role }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <p style="margin-top:12px; font-size:0.85rem; color:#718096;">
+            💡 To add users/faculty, edit the <code>USERS</code> dictionary in <code>app.py</code>.
+        </p>
+    </div>
+
+    <!-- ── Upload Notices ── -->
+    <div class="card">
+        <h2>📋 Upload Notice</h2>
+        <form method="POST" action="/admin/add_notice">
+            <div class="form-group">
+                <label>Notice Title</label>
+                <input type="text" name="title" placeholder="e.g. Holiday Announcement" required>
+            </div>
+            <div class="form-group">
+                <label>Notice Content</label>
+                <textarea name="content" placeholder="Write the notice here..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Post Notice</button>
+        </form>
+
+        <!-- Show all current notices -->
+        <p class="section-title" style="margin-top:20px;">Current Notices</p>
+        {% if notices %}
+            {% for notice in notices %}
+            <div class="notice-item">
+                <h4>{{ notice.title }}</h4>
+                <p>{{ notice.content }}</p>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p style="color:#718096;">No notices posted yet.</p>
+        {% endif %}
+    </div>
+
+</div>
+</body>
+</html>

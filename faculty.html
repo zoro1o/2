@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AEI – Faculty Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav class="navbar">
+    <div class="brand">🏛️ <span>AEI</span> Portal</div>
+    <a href="/logout">Logout ↩</a>
+</nav>
+
+<div class="container">
+    <div class="page-header">
+        <div>
+            <h1>Faculty Dashboard</h1>
+            <p>Manage student marks and upload study material</p>
+        </div>
+    </div>
+
+    <!-- ── Upload Marks ── -->
+    <div class="card">
+        <h2>✏️ Upload / Update Student Marks</h2>
+        <form method="POST" action="/faculty/upload_marks">
+            <div class="form-row">
+                <!-- Dropdown to select student -->
+                <div class="form-group">
+                    <label>Student</label>
+                    <select name="student_id" required>
+                        {% for sid, sdata in students.items() %}
+                            <option value="{{ sid }}">{{ sdata.name }} ({{ sid }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <!-- Subject input -->
+                <div class="form-group">
+                    <label>Subject</label>
+                    <input type="text" name="subject" placeholder="e.g. Math" required>
+                </div>
+                <!-- Marks input -->
+                <div class="form-group">
+                    <label>Marks (0–100)</label>
+                    <input type="number" name="marks" min="0" max="100" placeholder="e.g. 85" required>
+                </div>
+                <div class="form-group">
+                    <label>&nbsp;</label>
+                    <button type="submit" class="btn btn-success">Update Marks</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- ── View Current Marks ── -->
+    <div class="card">
+        <h2>📊 Current Student Records</h2>
+        {% for sid, sdata in students.items() %}
+        <p class="section-title">{{ sdata.name }} ({{ sid }}) — Attendance: {{ sdata.attendance }}%</p>
+        <table class="marks-table" style="margin-bottom:16px;">
+            <tr>
+                <th>Subject</th>
+                <th>Marks</th>
+            </tr>
+            {% for subject, mark in sdata.marks.items() %}
+            <tr>
+                <td>{{ subject }}</td>
+                <td>{{ mark }} / 100</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endfor %}
+    </div>
+
+    <!-- ── Upload Notes ── -->
+    <div class="card">
+        <h2>📄 Upload Study Notes</h2>
+        <form method="POST" action="/faculty/upload_notes">
+            <div class="form-group">
+                <label>Note Title</label>
+                <input type="text" name="title" placeholder="e.g. Unit 2 - Thermodynamics" required>
+            </div>
+            <div class="form-group">
+                <label>Content / Description</label>
+                <textarea name="content" placeholder="Write the note content here..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-success">Upload Note</button>
+        </form>
+
+        <!-- Show existing notes -->
+        {% if notes %}
+        <p class="section-title" style="margin-top:20px;">Uploaded Notes</p>
+        {% for note in notes %}
+        <div class="note-item">
+            <h4>{{ note.title }}</h4>
+            <p>{{ note.content }}</p>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+    <!-- ── Notices (read-only for faculty) ── -->
+    <div class="card">
+        <h2>📋 Current Notices</h2>
+        {% for notice in notices %}
+        <div class="notice-item">
+            <h4>{{ notice.title }}</h4>
+            <p>{{ notice.content }}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+</body>
+</html>

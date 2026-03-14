@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AEI – Notice Board</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav class="navbar">
+    <div class="brand">🏛️ <span>AEI</span> Portal</div>
+    <a href="/login">Login →</a>
+</nav>
+
+<div class="container">
+
+    <!-- Hero Banner -->
+    <div class="nb-hero">
+        <h1>📋 Notice Board</h1>
+        <p>Assam Engineering Institute — Official Announcements</p>
+    </div>
+
+    <!-- Display all notices dynamically -->
+    {% if notices %}
+        {% for notice in notices %}
+        <div class="notice-item" style="margin-bottom:16px; padding:16px 20px;">
+            <h4 style="font-size:1.05rem;">{{ notice.title }}</h4>
+            <p style="margin-top:6px;">{{ notice.content }}</p>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="card" style="text-align:center; color:#718096;">
+            No notices posted yet. Check back later.
+        </div>
+    {% endif %}
+
+    <div style="text-align:center; margin-top:20px;">
+        <a href="/login" class="btn btn-primary" style="width:auto;">Go to Portal Login →</a>
+    </div>
+
+</div>
+</body>
+</html>
